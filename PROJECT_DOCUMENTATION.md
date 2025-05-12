@@ -6,11 +6,11 @@
 ### **Functional Requirements**
 - **Data Retrieval:** What does the user need to be able to view in the system? 
 
-The user needs to be able to view the words for the typing test which has randomised words, which will end once the user has typed 25 words. The system will then gather the data from the user's test and calculate the WPM (Words Per Minute) from it.
+The user needs to be able to view the words for the typing test which has randomised words, which will end once the user has typed the set amount of words words. The system will then gather the data from the user's test and calculate the WPM (Words Per Minute) from it.
 
 - **User Interface:** What is required for the user to interact with the system?
 
-They need to be able to type the displayed words. If the user makes an error, they will not be able to progress in the test until they type the right letter. There will also be an exit button on the UI or on the window.
+They need to be able to type the displayed words so that they can test their typing skills. There will also be an option to select the amount of words the user wants to do, and the deafult will be 25. If the user makes an error during the typing test, they will lose accuracy. There will also be an exit button on the UI or on the window.
 
 - **Data Display:** What information does the user need to obtain from the system? What needs to be output for the user?
 
@@ -19,16 +19,22 @@ The user will get their results for the typing test. It will show their WPM from
 ### **Non-functional Requirements**
 - **Performance:** How well does the system need to perform? 
 
-The system needs to be able to register the input from the user instantly, and show it.
+The system needs to be able to register the input from the user instantly for a better measurement when calculating the WPM from the test.
 
 - **Reliability:** How reliable does the system and data need to be?
 
+The program needs to be fully reliable, as any innacuracies when gathering the data will result an inaccurate display of the WPM.
+
 - **Usability and Accessibility:** How easy to navigate does the system need to be? What instructions will we need for users to access the system?
+
+The system navigation needs to be easy to use with minimalistic design featuring the main parts of the test as well as other elements. There will also be a guide on how to use the program within the README.md file.
 
 ## **Determining Specifications**
 ### **Functional Secifications**
 - **User Requirements**
     - What does the user need to be able to do? List all specifications here.
+
+The user needs to be able to type letters to complete the test,
 
 - **Inputs & Outputs**
     - What inputs will the system need to accept and what outputs will it need to display?

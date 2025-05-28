@@ -94,8 +94,8 @@ The application needs to be open and running, with the words for the test loaded
 The user is given results on their test, and is met with two buttons which either restart or exit the test.
 
 ## **Design**
-
-
+![alt text](images/storyboard.png)
+![alt text](images/level0.png)
 ## **Build and Test**
 
 ## **Review**

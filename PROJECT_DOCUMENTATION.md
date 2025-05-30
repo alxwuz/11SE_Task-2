@@ -95,7 +95,17 @@ The user is given results on their test, and is met with two buttons which eithe
 
 ## **Design**
 ![alt text](images/storyboard.png)
+
+### DFD
+#### Level 0
 ![alt text](images/level0.png)
+
+#### Level 1
+![alt text](images/level1.png)
+
+### Gantt Chart
+![alt text](images/gantt.png)
+
 ## **Build and Test**
 
 ## **Review**

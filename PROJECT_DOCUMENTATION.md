@@ -96,19 +96,97 @@ The user is given results on their test, and is met with two buttons which eithe
 ## **Design**
 ![alt text](images/storyboard.png)
 
-### DFD
+### **Data Flow Diagrams**
 #### Level 0
 ![alt text](images/level0.png)
 
 #### Level 1
 ![alt text](images/level1.png)
 
-### Gantt Chart
+### **Gantt Chart**
 ![alt text](images/gantt.png)
 
 ## **Build and Test**
+```
+"""
+Import modules
+"""
+import tkinter as tk
+import ttkbootstrap
+
+"""
+Display the 'WPM' when run
+"""
+def get_wpm():
+    wpm = ttkbootstrap.Label(
+        text="great typing, your wpm is 9999!!", # It's too early to implement a working feature, so this is what will do for now.
+    )
+    wpm.pack(pady=5)
+
+"""
+Create the GUI for the test
+"""
+root = ttkbootstrap.Window(themename="superhero") # A theme for all of the text, buttons, etc. (using ttkbootstrap)
+root.title("AlxType")
+root.geometry("1600x900") # How big the window will start when launched (yes, it's resizable)
+
+"""
+Create the title
+"""
+title = ttkbootstrap.Label(
+    text="AlxType",
+)
+title.pack(pady=5)
+
+"""
+The prompt for the user to type
+"""
+prompt = ttkbootstrap.Label(
+    text="Type: shawn fan is a very cute boy who is good at maths",
+)
+prompt.pack(pady=5)
+
+"""
+An input box so the user can type the words
+"""
+word_input = ttkbootstrap.ScrolledText(
+    width=25,
+    height=5,
+)
+word_input.pack(pady=10)
+
+"""
+A submit button that gets the WPM when pressed
+"""
+submit_input = ttkbootstrap.Button(
+    text="Submit",  
+    command=get_wpm, # This is the command that displays the word count
+    bootstyle="outline button"
+)
+submit_input.pack()
+
+"""
+Start the GUI until closed
+"""
+root.mainloop()
+```
 
 ## **Review**
+1. **Evaluate**
+
+Right now, the program is just a very simple GUI, acting as a foundation for future improvements. Currently, users are able to submit the words that are typed, adhering to the prompt that is displayed above the text box, which fufils the basic funcitonal and non-functional requirements that was mentioned earlier.
+
+2. **Analyse**
+
+The program is performing well, it just needs to be improved upon during the next sprints. Currently, the program cannot calculate the WPM, so it just displays a text after the user submits the test, following the use-case, and handling the input and output well.
+
+3. **Assess**
+
+As for the code structure, it is well-written and coherent. The comments accurately label what the code is doing, and is structured well with lines seperating different parts of the code. The variables are named accurately, and overall, the code is structured neatly.
+
+4. **Explain**
+
+In the future, the WPM calculation will actually be implemented along with some GUI features, improving the aestethic of the program and improving the user's experience. There can also be some added features to the code structure, such as the comments being more detailed.
 
 ## **Launch**
 

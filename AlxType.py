@@ -24,7 +24,10 @@ root.geometry("1600x900") # How big the window will start when launched (yes, it
 Create the title
 """
 title = ttkbootstrap.Label(
+    root,
     text="AlxType",
+    font = ("System", 48, "bold",),
+    bootstyle = "light"
 )
 title.pack(pady=5)
 

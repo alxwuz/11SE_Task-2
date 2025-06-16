@@ -1,61 +1,134 @@
-"""
-Import modules
-"""
+from tkinter import messagebox
 import tkinter as tk
 import ttkbootstrap
+import time
+import random
 
-"""
-Display the 'WPM' when run
-"""
-def get_wpm():
-    wpm = ttkbootstrap.Label(
-        text="great typing, your wpm is 9999!!", # It's too early to implement a working feature, so this is what will do for now.
+# global variables
+start_time = None
+
+# load words from the 'wordlist.txt' file
+with open("wordlist.txt", "r") as f:
+    words = [line.strip() for line in f if line.strip()]
+
+def validate_entry(text):
+    """
+    Only allows numbers.
+    """
+    return text.isdecimal()
+
+def start_test():
+    """
+    Starts the typing test. It gets the amount of words from the input,
+    generates them and prepares for the user to start typing.
+    """
+    global test_words, start_time
+
+    try:
+        count = int(entry.get())
+    except ValueError:
+        messagebox.showwarning("Error", "Please enter a valid number of words.")
+        entry.config(state="normal") # 
+        entry.delete(0, tk.END)
+        entry.focus()
+        return
+
+    if count > len(words):
+        messagebox.showwarning("Error", f"Not enough words in the list. Please enter a number up to {len(words)}.")
+        entry.config(state="normal")
+        entry.delete(0, tk.END)
+        entry.focus()
+        return
+
+    # select random words for the test
+    test_words = random.sample(words, count)
+    word_display.config(text=" ".join(test_words))
+
+    # reset the input box
+    word_input.config(state="normal")
+    word_input.delete(0, tk.END)
+    word_input.focus()
+
+    # record the start of the test
+    start_time = time.time()
+
+def end_test():
+    """
+    Ends the typing test, calculates WPM, and displays the results.
+    """
+    if not test_words or start_time is None:
+        messagebox.showwarning("Error", "Start the test first.")
+        return
+
+    typed_text = word_input.get().strip()
+    typed_words = typed_text.split()
+
+    total_typed = len(typed_words)
+
+    elapsed = time.time() - start_time
+    # calculate WPM
+    wpm = round((total_typed / elapsed) * 60) if elapsed > 0 else 0
+
+    # display the test results
+    word_display.config(
+        text=f"Test complete!\nWPM: {wpm}"
     )
-    wpm.pack(pady=5)
+    # disable the input of words
+    word_input.config(state="disabled")
 
-"""
-Create the GUI for the test
-"""
-root = ttkbootstrap.Window(themename="superhero") # A theme for all of the text, buttons, etc. (using ttkbootstrap)
-root.title("AlxType")
-root.geometry("1600x900") # How big the window will start when launched (yes, it's resizable)
+# GUI setup
+# create the main window using ttkbootstrap
+root = ttkbootstrap.Window(themename="superhero")
+root.title("AlxType - Typing Speed Test")
+root.geometry("1600x900")
 
-"""
-Create the title
-"""
+# title Label
 title = ttkbootstrap.Label(
     text="AlxType",
 )
-title.pack(pady=5)
+title.pack(pady=10)
 
-"""
-The prompt for the user to type
-"""
-prompt = ttkbootstrap.Label(
-    text="Type: shawn fan is a very cute boy who is good at maths",
+# instructions Label
+instructions = ttkbootstrap.Label(
+    text="Enter the number of words for the test:",
 )
-prompt.pack(pady=5)
+instructions.pack(pady=10)
 
-"""
-An input box so the user can type the words
-"""
-word_input = ttkbootstrap.ScrolledText(
-    width=25,
-    height=5,
+# entry widget for the user to input only numbers
+entry = ttkbootstrap.Entry(
+    validate="key",
+    validatecommand=(root.register(validate_entry), "%S"), # makes sure only decimal numbers are entered
+    width=10
+)
+entry.pack(pady=10)
+
+# button to start the test
+word_gen = ttkbootstrap.Button(
+    text="Generate Words",
+    command=start_test,
+)
+word_gen.pack(pady=10)
+
+# label to display the words for typing
+word_display = ttkbootstrap.Label(
+    text="Words will appear here...",
+    wraplength=1400, # wraps text
+)
+word_display.pack(pady=25, padx=50)
+
+# entry widget for the user to type the words
+word_input = ttkbootstrap.Entry(
+    width=50,
+    state="disabled" # unable to type until test starts
 )
 word_input.pack(pady=10)
 
-"""
-A submit button that gets the WPM when pressed
-"""
+# button to end the test
 submit_input = ttkbootstrap.Button(
-    text="Submit",  
-    command=get_wpm, # This is the command that displays the word count
-    bootstyle="outline button"
+    text="Get WPM",
+    command=end_test,
 )
-submit_input.pack()
+submit_input.pack(pady=10)
 
-"""
-Start the GUI until closed
-"""
+# loops the program
 root.mainloop()

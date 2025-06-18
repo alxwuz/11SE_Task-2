@@ -205,13 +205,13 @@ To run the program, just download the latest release on the GitHub (it may take 
 
 # Sprint 2
 ## **Design**
-### Structure Chart
+### **Structure Chart**
 ![alt text](images/structurechart.png)
 
-### Flowchart
+### **Flowchart**
+#### **Main Process**
 ![alt text](images/flowchart.png)
 
-### Psuedocode
 ```
 BEGIN root.mainloop()
     IF New test requested THEN
@@ -224,6 +224,43 @@ BEGIN root.mainloop()
     
     DISPLAY Test statistics  
 END root.mainloop()
+```
+
+#### **start_test()**
+![alt text](images/start_test.png)
+
+```
+BEGIN start_test()
+    GET no. of words input from user
+
+    IF error:
+        DISPLAY error message
+
+        ELSE:  
+            SELECT and DISPLAY randomized words for the test
+            RESET input box for typing
+            START timer
+    ENDIF
+
+END start_test()
+```
+
+#### **end_test()**
+![alt text](images/end_test.png)
+
+```
+BEGIN end_test()
+    IF any user input/time has been started:
+        PROCESS user's input
+        CALCULATE test results
+        DISPLAY results
+        DISABLE INPUT of words
+    
+        ELSE:
+            DISPLAY error message
+
+    ENDIF
+END end_test()
 ```
 
 ## **Build and Test**
@@ -393,12 +430,200 @@ To run the program, you will need to download python (the latest versions is rec
 
 # Sprint 3
 ## **Design**
+### **UML Class Diagram**
+![alt text](images/uml.png)
 
 ## **Build and Test**
+```
+from tkinter import messagebox
+import tkinter as tk
+import ttkbootstrap
+import time
+import random
+
+class WordLoader:
+    """
+    Loads and validates words from wordlist.txt.
+    """
+    def __init__(self, filepath):
+        self._words = self._load_words(filepath)
+
+    def _load_words(self, filepath):
+        with open(filepath, "r") as file:
+            return [line.strip() for line in file if line.strip()] 
+
+    def get_words(self, count):
+        if count > len(self._words):
+            raise ValueError(f"Maximum allowed words: {len(self._words)}") # error msg
+        return random.sample(self._words, count)
+
+    def word_count(self):
+        return len(self._words)
+
+class AlxType:
+    """
+    Manages the main functions, such as word generation and statistics,
+    and also handles the interaction logic between the GUI and data.
+    """
+    def __init__(self, words_loader, gui):
+        self._words_loader = words_loader
+        self._start_time = None
+        self._test_words = []
+        self.gui = gui
+
+    def start_test(self):
+        count_str = self.gui.number_entry.get()
+        if not count_str.isdigit():
+            messagebox.showerror("Error", "Please enter a valid number")
+            return
+
+        count = int(count_str)
+        max_words = self._words_loader.word_count()
+
+        if count > max_words:
+            messagebox.showerror("Error", f"Maximum allowed words: {max_words}")
+            return
+
+        self._test_words = self._words_loader.get_words(count)
+        self._start_time = time.time()
+
+        self.gui.word_display.config(text=" ".join(self._test_words)) # adds the test words
+        self.gui.word_entry.config(state="normal")
+        self.gui.word_entry.delete(0, tk.END)
+        self.gui.word_entry.focus()
+
+    def end_test(self):
+        typed_text = self.gui.word_entry.get()
+        elapsed = time.time() - self._start_time
+        typed_words = typed_text.strip().split()
+        wpm = round(len(typed_words) / elapsed * 60) if elapsed > 0 else 0 # wpm calculation
+
+        messagebox.showinfo("Results", f"Your typing speed is {wpm} WPM")
+
+        self.gui.word_entry.config(state="disabled")
+        self.gui.number_submit.config(state="normal")
+        self.gui.input_submit.config(state="disabled")
+
+
+class BaseApp:
+    """
+    Base GUI window.
+    """
+    def __init__(self):
+        self.root = ttkbootstrap.Window(themename="superhero")
+        self.root.title("AlxType")
+        self.root.geometry("1600x900")
+
+    def run(self):
+        self.root.mainloop()
+
+class GUI(BaseApp):
+    """
+    Main app that combines the other classes.
+    """
+    def __init__(self):
+        super().__init__()
+        self.word_loader = WordLoader("wordlist.txt")
+        self.logic = AlxType(self.word_loader, self)
+        self.build_gui()
+
+    def validate_entry(self, text):
+        return text.isdecimal() # command for number-only input
+
+    def build_gui(self):
+        """
+        Creates all of the widgets for the GUI.
+        """
+        self.title = ttkbootstrap.Label(
+            self.root,
+            text="AlxType"
+            )
+        self.title.pack(pady=10)
+
+        self.instructions = ttkbootstrap.Label(
+            self.root,
+            text="Enter any amount of words."
+            )
+        self.instructions.pack(pady=10)
+
+        self.number_entry = ttkbootstrap.Entry(
+            self.root,
+            validate="key",
+            validatecommand=(self.root.register(self.validate_entry), "%P"), # number-only input
+            width=10
+        )
+        self.number_entry.pack(pady=10)
+
+        self.number_submit = ttkbootstrap.Button(
+            self.root,
+            text="Generate Words",
+            command=self.logic.start_test # command for starting the test
+        )
+        self.number_submit.pack(pady=10)
+
+        self.word_display = ttkbootstrap.Label(
+            self.root,
+            text="Words will appear here...",
+            wraplength=1400
+        )
+        self.word_display.pack(pady=25, padx=50)
+
+        self.word_entry = ttkbootstrap.Entry(
+            self.root,
+            width=50,
+            state="disabled"
+        )
+        self.word_entry.pack(pady=10)
+
+        self.input_submit = ttkbootstrap.Button(
+            self.root,
+            text="Get WPM",
+            command=self.logic.end_test # command for ending the test
+        )
+        self.input_submit.pack(pady=10)
+
+GUI().run()
+```
 
 ## **Review**
+1. **Evaluate**
+
+All of the code has been successfully implemented to use OOP code, including most of its features like inheritance, encapsulation, etc. It still includes all of the features that were implied in the functional and non-functional requirements, making all the criteria good. All that's left to do is make the program look better and add some more features (including accuracy calculation).
+
+2. **Analyse**
+
+When running the program, it almost all of the input and output as planned. If there is an error, for example trying to generate more words than the wordlist has, it will give a messagebox error and clear the input so the user can retry. It also handles the output by correctly calculating the WPM, although the time starts when the words are generated, not when the user starts the typing (which will be fixed in Sprint 4). Therefore, the program handles most of the input and output, there just need to be some small fixes and updates.
+
+3. **Assess**
+
+Like the other sprints, the code is well organised, and has been improved by renaming the variables and making it more readable. The docstrings clearly highlight what the class is doing, and the comments inform specific lines of code, maintaining a clear readability factor and being coherent.
+
+4. **Explain**
+There isn't much to do for the code structure as there will not need to be any improvements, what is needed is just adding the last few features in Sprint 4 and updating the GUI, which is more important. As for that, everything is going well.
 
 ## **Launch**
+### **README.md**
+```
+# AlxType
+
+**AlxType** is a Python-based application with a simple GUI built using `ttkbootstrap`. It measures your typing speed (in words per minute) based on a randomly generated prompt selected from a list.
+
+## Features
+
+- Clean GUI interface
+- Random word generation to ensure different scenarios
+- Easy to use and extend
+
+## Guide
+
+1. To run the application, you need to clone or download this repository. You can do this by clicking the green button and downloading the zip.
+
+2. Extract the file.
+
+3. Install the required repositories. You can do this by going to the terminal of the root folder and entering the command `pip install -r requirements.txt`.
+
+4. Run the program. You can enter the command `python AlxType.py' or running it in a code editor (such as Visual Studio Code).
+```
 
 # Sprint 4
 ## **Design**

@@ -4,131 +4,145 @@ import ttkbootstrap
 import time
 import random
 
-# global variables
-start_time = None
-
-# load words from the 'wordlist.txt' file
-with open("wordlist.txt", "r") as f:
-    words = [line.strip() for line in f if line.strip()]
-
-def validate_entry(text):
+class WordLoader:
     """
-    Only allows numbers.
+    Loads and validates words from wordlist.txt.
     """
-    return text.isdecimal()
+    def __init__(self, filepath):
+        self._words = self._load_words(filepath)
 
-def start_test():
+    def _load_words(self, filepath):
+        with open(filepath, "r") as shawn_fan_is_very_cute:
+            return [line.strip() for line in shawn_fan_is_very_cute if line.strip()] 
+
+    def get_words(self, count):
+        if count > len(self._words):
+            raise ValueError(f"Maximum allowed words: {len(self._words)}") # error msg
+        return random.sample(self._words, count)
+
+    def word_count(self):
+        return len(self._words)
+
+class AlxType:
     """
-    Starts the typing test. It gets the amount of words from the input,
-    generates them and prepares for the user to start typing.
+    Manages the main functions, such as word generation and statistics,
+    and also handles the interaction logic between the GUI and data.
     """
-    global test_words, start_time
+    def __init__(self, words_loader, gui):
+        self._words_loader = words_loader
+        self._start_time = None
+        self._test_words = []
+        self.gui = gui
 
-    try:
-        count = int(entry.get())
-    except ValueError:
-        messagebox.showwarning("Error", "Please enter a valid number of words.")
-        entry.config(state="normal") # 
-        entry.delete(0, tk.END)
-        entry.focus()
-        return
+    def start_test(self):
+        count_str = self.gui.number_entry.get()
+        if not count_str.isdigit():
+            messagebox.showerror("Error", "Please enter a valid number")
+            return
 
-    if count > len(words):
-        messagebox.showwarning("Error", f"Not enough words in the list. Please enter a number up to {len(words)}.")
-        entry.config(state="normal")
-        entry.delete(0, tk.END)
-        entry.focus()
-        return
+        count = int(count_str)
+        max_words = self._words_loader.word_count()
 
-    # select random words for the test
-    test_words = random.sample(words, count)
-    word_display.config(text=" ".join(test_words))
+        if count > max_words:
+            messagebox.showerror("Error", f"Maximum allowed words: {max_words}")
+            return
 
-    # reset the input box
-    word_input.config(state="normal")
-    word_input.delete(0, tk.END)
-    word_input.focus()
+        self._test_words = self._words_loader.get_words(count)
+        self._start_time = time.time()
 
-    # record the start of the test
-    start_time = time.time()
+        self.gui.word_display.config(text=" ".join(self._test_words)) # adds the test words
+        self.gui.word_entry.config(state="normal")
+        self.gui.word_entry.delete(0, tk.END)
+        self.gui.word_entry.focus()
 
-def end_test():
+    def end_test(self):
+        typed_text = self.gui.word_entry.get()
+        elapsed = time.time() - self._start_time
+        typed_words = typed_text.strip().split()
+        wpm = round(len(typed_words) / elapsed * 60) if elapsed > 0 else 0 # wpm calculation
+
+        messagebox.showinfo("Results", f"Your typing speed is {wpm} WPM")
+
+        self.gui.word_entry.config(state="disabled")
+        self.gui.number_submit.config(state="normal")
+        self.gui.input_submit.config(state="disabled")
+
+
+class BaseApp:
     """
-    Ends the typing test, calculates WPM, and displays the results.
+    Base GUI window.
     """
-    if not test_words or start_time is None:
-        messagebox.showwarning("Error", "Start the test first.")
-        return
+    def __init__(self):
+        self.root = ttkbootstrap.Window(themename="superhero")
+        self.root.title("AlxType")
+        self.root.geometry("1600x900")
 
-    typed_text = word_input.get().strip()
-    typed_words = typed_text.split()
+    def run(self):
+        self.root.mainloop()
 
-    total_typed = len(typed_words)
+class GUI(BaseApp):
+    """
+    Main app that combines the other classes.
+    """
+    def __init__(self):
+        super().__init__()
+        self.word_loader = WordLoader("wordlist.txt")
+        self.logic = AlxType(self.word_loader, self)
+        self.build_gui()
 
-    elapsed = time.time() - start_time
-    # calculate WPM
-    wpm = round((total_typed / elapsed) * 60) if elapsed > 0 else 0
+    def validate_entry(self, text):
+        return text.isdecimal() # command for number-only input
 
-    # display the test results
-    word_display.config(
-        text=f"Test complete!\nWPM: {wpm}"
-    )
-    # disable the input of words
-    word_input.config(state="disabled")
+    def build_gui(self):
+        """
+        Creates all of the widgets for the GUI.
+        """
+        self.title = ttkbootstrap.Label(
+            self.root,
+            text="AlxType"
+            )
+        self.title.pack(pady=10)
 
-# GUI setup
-# create the main window using ttkbootstrap
-root = ttkbootstrap.Window(themename="superhero")
-root.title("AlxType - Typing Speed Test")
-root.geometry("1600x900")
+        self.instructions = ttkbootstrap.Label(
+            self.root,
+            text="Enter any amount of words."
+            )
+        self.instructions.pack(pady=10)
 
-# title Label
-title = ttkbootstrap.Label(
-    text="AlxType",
-)
-title.pack(pady=10)
+        self.number_entry = ttkbootstrap.Entry(
+            self.root,
+            validate="key",
+            validatecommand=(self.root.register(self.validate_entry), "%P"), # number-only input
+            width=10
+        )
+        self.number_entry.pack(pady=10)
 
-# instructions Label
-instructions = ttkbootstrap.Label(
-    text="Enter the number of words for the test:",
-)
-instructions.pack(pady=10)
+        self.number_submit = ttkbootstrap.Button(
+            self.root,
+            text="Generate Words",
+            command=self.logic.start_test # command for starting the test
+        )
+        self.number_submit.pack(pady=10)
 
-# entry widget for the user to input only numbers
-entry = ttkbootstrap.Entry(
-    validate="key",
-    validatecommand=(root.register(validate_entry), "%S"), # makes sure only decimal numbers are entered
-    width=10
-)
-entry.pack(pady=10)
+        self.word_display = ttkbootstrap.Label(
+            self.root,
+            text="Words will appear here...",
+            wraplength=1400
+        )
+        self.word_display.pack(pady=25, padx=50)
 
-# button to start the test
-word_gen = ttkbootstrap.Button(
-    text="Generate Words",
-    command=start_test,
-)
-word_gen.pack(pady=10)
+        self.word_entry = ttkbootstrap.Entry(
+            self.root,
+            width=50,
+            state="disabled"
+        )
+        self.word_entry.pack(pady=10)
 
-# label to display the words for typing
-word_display = ttkbootstrap.Label(
-    text="Words will appear here...",
-    wraplength=1400, # wraps text
-)
-word_display.pack(pady=25, padx=50)
+        self.input_submit = ttkbootstrap.Button(
+            self.root,
+            text="Get WPM",
+            command=self.logic.end_test # command for ending the test
+        )
+        self.input_submit.pack(pady=10)
 
-# entry widget for the user to type the words
-word_input = ttkbootstrap.Entry(
-    width=50,
-    state="disabled" # unable to type until test starts
-)
-word_input.pack(pady=10)
-
-# button to end the test
-submit_input = ttkbootstrap.Button(
-    text="Get WPM",
-    command=end_test,
-)
-submit_input.pack(pady=10)
-
-# loops the program
-root.mainloop()
+GUI().run()

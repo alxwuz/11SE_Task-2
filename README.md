@@ -1,6 +1,19 @@
 # AlxType
-## Overview
-Welcome to this program, where you can test your typing speed by typing a prompt of words to determine your WPM (Words Per Minute), to see how fast your typing skills are (the higher the better).
 
-## Installation
-To run the program, you will need to download python (the latest versions is recommended). After, download the .zip file of this (you can see from the green button), then extract it and open it. Run the command `pip install -r requirements.txt` in the terminal/command prompt with the folder navigated to. This will install the dependencies needed for running the program, which you can then run `AlxType.py` (preferably in a code editor such as VSCode). The other modules already come with Python, so there is no need to install them.
+**AlxType** is a Python-based application with a simple GUI built using `ttkbootstrap`. It measures your typing speed (in words per minute) based on a randomly generated prompt selected from a list.
+
+## Features
+
+- Clean GUI interface
+- Random word generation to ensure different scenarios
+- Easy to use and extend
+
+## Guide
+
+1. To run the application, you need to clone or download this repository. You can do this by clicking the green button and downloading the zip.
+
+2. Extract the file.
+
+3. Install the required repositories. You can do this by going to the terminal of the root folder and entering the command `pip install -r requirements.txt`.
+
+4. Run the program. You can enter the command `python AlxType.py' or running it in a code editor (such as Visual Studio Code).

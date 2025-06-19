@@ -4,84 +4,76 @@
 # Sprint 1
 ## **Requirements Definition**
 ### **Functional Requirements**
-- **Data Retrieval:** What does the user need to be able to view in the system? 
+- **Data Retrieval**
 
-The user needs to be able to view the words for the typing test which has randomised words, which will end once the user has typed the set amount of words words. The system will then gather the data from the user's test and calculate the WPM (Words Per Minute) from it.
+The user needs to be able to view the words for the typing test which has randomised words, which will end once the user has typed the set number of words. The system will then gather the data from the user's test and calculate the WPM (Words Per Minute) from it.
 
-- **User Interface:** What is required for the user to interact with the system?
+- **User Interface**
 
-They need to be able to type the displayed words so that they can test their typing skills. There will also be an option to select the amount of words the user wants to do, and the default will be 25. If the user makes an error during the typing test, they will lose accuracy. There will also be an exit button on the UI or on the window.
+They need to be able to type the displayed words so that they can test their typing skills. There will also be an option to select the number of words the user wants to do, and the default will be 25. If the user makes an error during the typing test, they will lose accuracy. There will also be an exit button on the UI or on the window.
 
-- **Data Display:** What information does the user need to obtain from the system? What needs to be output for the user?
+- **Data Display**
 
 The user will get their results for the typing test. It will show their WPM from the typing test that they completed, as well as how long it took them to type all of it.
 
 ### **Non-functional Requirements**
-- **Performance:** How well does the system need to perform? 
+- **Performance**
 
 The system needs to be able to register the input from the user without a big delay for a quick measurement when calculating the results from the user's test.
 
-- **Reliability:** How reliable does the system and data need to be?
+- **Reliability**
 
-The program needs to be fully reliable, as any innacuracies when gathering the data will result an inaccurate display of the WPM.
+The program needs to be fully reliable, as any inaccuracies when gathering the data will result an inaccurate display of the WPM.
 
-- **Usability and Accessibility:** How easy to navigate does the system need to be? What instructions will we need for users to access the system?
+- **Usability and Accessibility**
 
 The system navigation needs to be easy to use with minimalistic design featuring the main parts of the test as well as other elements. There will also be a guide on how to use the program within the README.md file.
 
 ## **Determining Specifications**
 ### **Functional Specifications**
 - **User Requirements**
-    - What does the user need to be able to do? List all specifications here.
 
-The user needs to be able to start the test, write the displayed words, which then they will recieve their feedback. The system should be easy to use and allow the user to reset or exit the test whenever it is needed.
+The user needs to be able to start the test, write the displayed words, which then they will receive their feedback. The system should be easy to use and allow the user to reset or exit the test whenever it is needed.
 
 - **Inputs & Outputs**
-    - What inputs will the system need to accept and what outputs will it need to display?
 
 In the test, the user will take the keyboard's input from the user as they do the test, and will display statistics while the user is typing, such as time passed during the test or words typed, etc.
 
 - **Core Features**
-    - At its core, what specifically does the program need to be able to do?
 
 The essential features that the program needs to are displaying the passage of text, show the statistics while doing the test, and calculate the inputs from the user and clearly display the results on the graphical user interface (GUI).
 
 - **User Interaction**
-    - How will users interact with the system (e.g. command-line, GUI?) and what information will it need to provide to help users navigate?
 
 Users will interact with the program with a GUI with clear navigation, where they are able to complete the test and view their results on how well they did.
 
 - **Error Handling**
-    - What possible errors could you face that need to be handled by the system?
 
-Some errors that can happen in the program include empty inputs, not following the specified words for the test, etc. The program must be able to handle these problems without breaking the whole system as it would result in a big inconvenience.
+Some errors that can happen in the program include empty inputs, not following the specified words for the test, etc. The program must be able to handle these problems without breaking the entire system as it would result in a big inconvenience.
 
 ### **Non-functional Specifications**
 - **Performance**
-    - How quickly should we try to get the system to perform tasks, what efficiency is required to maintain user engagement? How can we ensure our program remains efficient?
 
 The system will need to respond instantly to the user's input. A fast system response keeps the users engaged, so the program needs to be optimized to keep it running without delays or any problems.
 
 - **Useability / Accessibility**
-    - How might you make your application more accessible? What could you do with the User Interface to improve usability?
 
-To improve accessibility in the program, there could be support such as readable fonts, larger buttons, as well as adding different languages. The usability can be improved by not making the UI too complex and making it a simple design.
+To improve accessibility in the program, there could be support such as readable fonts, larger buttons, as well as adding different languages. The usability can be improved by not making the UI too complex and making it a plain design.
 
 - **Reliability**
-    - What could perhaps not crash the whole system, but could be an issue and needs to be addressed? Data integrity? Illogical calculation? Menu navigation going to wrong places?
 
-Some minor errors that could happen in the system include innacurate WPM calculations or not getting the raw input from the user. These problems will need to be tested to ensure the program runs smoothly.
+Some minor errors that could happen in the system include inaccurate WPM calculations or not getting the raw input from the user. These problems will need to be tested to ensure the program runs smoothly.
 
 ### **Use Cases**
-- **Actors:** Who interacts with the system (e.g., user, external system).
+- **Actors**
 
 Someone who wants to test their typing skills using the application.
 
-- **Preconditions:** Conditions that must be met before the use case starts.
+- **Preconditions**
 
 The application needs to be open and running, with the words for the test loaded and ready to be started.
 
-- **Main Flow:** The step-by-step process of how the interaction occurs.
+- **Main Flow**
 
 1. The user opens the application
 2. They select the configurations for the test.
@@ -91,9 +83,10 @@ The application needs to be open and running, with the words for the test loaded
 
 **Postconditions:** The expected outcome or result after the use case is completed.
 
-The user is given results on their test, and is met with two buttons which either restart or exit the test.
+The user is given results on their test and is met with two buttons which either restart or exit the test.
 
 ## **Design**
+### **Storyboard**
 ![alt text](images/storyboard.png)
 
 ### **Data Flow Diagrams**
@@ -175,19 +168,19 @@ root.mainloop()
 ## **Review**
 1. **Evaluate**
 
-Right now, the program is just a very simple GUI, acting as a foundation for future improvements. Currently, users are able to submit the words that are typed, adhering to the prompt that is displayed above the text box, which fufils the basic funcitonal and non-functional requirements that was mentioned earlier.
+Right now, the program is just a quite simple GUI, acting as a foundation for future improvements. Currently, users can submit the words that are typed, adhering to the prompt that is displayed above the text box, which fulfills the basic functional and non-functional requirements that was mentioned earlier.
 
 2. **Analyse**
 
-The program is performing well, it just needs to be improved upon during the next sprints. Currently, the program cannot calculate the WPM, so it just displays a text after the user submits the test, following the use-case, and handling the input and output well.
+The program is performing well. It just needs to be improved upon during the next sprints. Currently, the program cannot calculate the WPM, so it just displays a text after the user submits the test, following the use-case, and handling the input and output well.
 
 3. **Assess**
 
-As for the code structure, it is well-written and coherent. The comments accurately label what the code is doing, and is structured well with lines seperating different parts of the code. The variables are named accurately, and overall, the code is structured neatly.
+As for the code structure, it is well-written and coherent. The comments accurately label what the code is doing and is structured well with lines separating various parts of the code. The variables are named accurately, and overall, the code is structured neatly.
 
 4. **Explain**
 
-In the future, the WPM calculation will actually be implemented along with some GUI features, improving the aestethic of the program and improving the user's experience. There can also be some added features to the code structure, such as the comments being more detailed.
+In the future, the WPM calculation will be implemented along with some GUI features, improving the aesthetics of the program and improving the user's experience. There can also be some added features to the code structure, such as the comments being more detailed.
 
 ## **Launch**
 ### **README.MD**
@@ -408,11 +401,11 @@ There has been a lot of progress in the functions of the application. It meets t
 
 2. **Analyse**
 
-The program works well, it just needs to be polished during the next sprints. Currently, the program can calculate the WPM, following the user case, and handling the input and output well.
+The program works very nicely, but it just needs to be polished during the next sprints. Currently, the program can calculate the WPM, follow the use case, and handle the input and output well.
 
 3. **Assess**
 
-The code structure is clear to read and analyse. The docstrings and comments show what the code is doing, and is structured well with lines seperating different parts of the code. The variables are named mostly correctly (there could be some changes in the future), and the code is optimised.
+The code structure is clear to read and analyse. The docstrings and comments show what the code is doing and is structured well with lines separating various parts of the code. The variables are named mostly correctly (there could be some changes in the future), and the code is optimised.
 
 4. **Explain**
 Since most of the core features have been made, there may be some bugs and features that need to be fixed/implemented (especially adding classes). One example of this could be finish adding an accuracy feature. The code could be optimised too, making the program more efficient.
@@ -449,8 +442,8 @@ class WordLoader:
         self._words = self._load_words(filepath)
 
     def _load_words(self, filepath):
-        with open(filepath, "r") as file:
-            return [line.strip() for line in file if line.strip()] 
+        with open(filepath, "r") as shawn_fan_is_very_cute:
+            return [line.strip() for line in shawn_fan_is_very_cute if line.strip()] 
 
     def get_words(self, count):
         if count > len(self._words):
@@ -503,7 +496,6 @@ class AlxType:
         self.gui.word_entry.config(state="disabled")
         self.gui.number_submit.config(state="normal")
         self.gui.input_submit.config(state="disabled")
-
 
 class BaseApp:
     """
@@ -588,17 +580,18 @@ GUI().run()
 ## **Review**
 1. **Evaluate**
 
-All of the code has been successfully implemented to use OOP code, including most of its features like inheritance, encapsulation, etc. It still includes all of the features that were implied in the functional and non-functional requirements, making all the criteria good. All that's left to do is make the program look better and add some more features (including accuracy calculation).
+All the code has been successfully implemented to use OOP fundamentals, including most of its features like inheritance, encapsulation, etc. It still includes all the features that were implied in the functional and non-functional requirements, making all the criteria good. All that's left to do is make the program look better and add some more features (including accuracy calculation).
 
 2. **Analyse**
 
-When running the program, it almost all of the input and output as planned. If there is an error, for example trying to generate more words than the wordlist has, it will give a messagebox error and clear the input so the user can retry. It also handles the output by correctly calculating the WPM, although the time starts when the words are generated, not when the user starts the typing (which will be fixed in Sprint 4). Therefore, the program handles most of the input and output, there just need to be some small fixes and updates.
+When running the program, it almost all the input and output as planned. If there is an error, for example trying to generate more words than the wordlist has, it will give a messagebox error and clear the input so the user can retry. It also handles the output by correctly calculating the WPM, although the time starts when the words are generated, not when the user starts the typing (which will be fixed in Sprint 4). Therefore, the program handles most of the input and output, there just need to be some small fixes and updates.
 
 3. **Assess**
 
-Like the other sprints, the code is well organised, and has been improved by renaming the variables and making it more readable. The docstrings clearly highlight what the class is doing, and the comments inform specific lines of code, maintaining a clear readability factor and being coherent.
+Like the other sprints, the code is well organised and has been improved by renaming the variables and making it more readable. The docstrings clearly highlight what the class is doing, and the comments inform specific lines of code, maintaining a clear readability factor and being coherent.
 
 4. **Explain**
+
 There isn't much to do for the code structure as there will not need to be any improvements, what is needed is just adding the last few features in Sprint 4 and updating the GUI, which is more important. As for that, everything is going well.
 
 ## **Launch**
@@ -627,9 +620,65 @@ There isn't much to do for the code structure as there will not need to be any i
 
 # Sprint 4
 ## **Design**
+### **Potential Enhancements**
+Although most of the core features have already been implemented, there is still room for some extra improvements. One of the key features that will be implemented in this sprint is adding an accuracy feature, as well as some other small features. This includes more important things like language support, releases for multiple operating systems (so the application is computer-friendly), etc.
+
+### **Integration Process**
+Most of the features that were suggested can be built in the AlxType logic and GUI structure, which already handle input, output, and display. There won't be any need to rewrite the core structure, as the features can be added by extending the methods and adding new ones. For example, if there was a difficulty feature, there would be multiple wordlists (or maybe an API for different words), and an option for the user to choose which difficulty.
+
+### **Update**
+#### **UML**
+![alt text](images/umlnew.png)
+
+There was nothing different except `on_keypress()` and `update_timer()` being added for the improvements mentioned in Sprint 3. The structure chart did not have anything that was needed to be changed, as the process was still the same.
 
 ## **Build and Test**
+No need to paste the code here, you can view it in `AlxType.py` (since it is the final commit anyway) :)
 
 ## **Review**
+1. **Evaluate**
+
+After all the programming and debugging, it is safe to say that the final code meets all the functional and non-functional requirements. The user can effectively view the data and can easily interact with it, as well as viewing the output from the system. The system performs exceptionally well, making instant calculations without any delay, as well as being reliable during the calculations.
+
+2. **Analyse**
+
+The program behaves as expected and handles input and output as planned. If there are any errors, it will display them to the user, so they know what to do. It can accurately do the said process without any problems (generating words, calculating statistics, etc.).
+
+3. **Assess**
+
+There has certainly been a noticeably big improvement in terms of the code structure and readability over that past few sprints, improving the code bit by bit as time passes. The code in the program is easy to understand, especially with the docstrings and comments, which accurately highlight what is happening, making even someone with little knowledge about Python know what's going on.
+
+4. **Explain**
+
+Since this is the last sprint, all the needed features have been already added, and the only option going forward is to improve and add features, which examples of have already been mentioned above.
 
 ## **Launch**
+Again, no need to past it in here as it the context is already in `README.md` and `requirements.txt`
+
+## **Evaluation of System**
+1. a) **Future Updates**
+
+In future updates, there could need to be some extra feature improvements and accessibility additions for a wider range of people, such as adding support to people who speak different languages. As of right now, the program only loads and tests words using wordlist.txt, which is in English. By improving upon this feature, users could select what language (corresponding to a language file), such as Chinese, Spanish, etc., and the system would load a wordlist depending on their choice. To support this, the class `WordLoader` would be modified to load different language files, such as `wordlist_cn.txt` for someone who would want to have a Chinese typing test. This could also be said about the GUI, where all the text is changed to the language.
+
+1. b) **Impacts**
+
+In this feature, there are both positive and negative impacts. For the positive results, more users can access the system and enhance their typing skills in another language, which can be particularly important to people, such as people learning new languages. With great power comes with great responsibility, because it may be complex, meaning the UI could become very cluttered if not designed carefully, making the process exceedingly long to implement.
+
+2. **Criteria**
+
+When the final program was compared to the original functional and non-functional requirements, the system meets majority of the specified criteria. In terms of the functional requirements, the system allows users of the program to view a select number of randomly generated words, type them in a GUI, and view the results. As for the non-functional requirements, the system performs extremely well in terms of responsiveness. The user's input is registered without any delay, and the timing functions are accurate and consistent. The usability is also strong due to the GUI layout, and instructions are in the `README.md` file as said. However, the system doesn't support any major accessibility features, which would be important for users who have specific needs. Additionally, there is still some risk of some errors, for example, typing extra spaces or not adhering to word capitalisation could affect the accuracy of the score. Nevertheless, the system matches closely with the specifications but needs a little extra room improvement for some minor features.
+
+### **Project Management**
+
+The overall management of the process was based on a Gantt chart, which helped break down tasks and setting an accurate milestone for each sprint. To be honest, the project was underestimated in terms of difficulty, and I did not notice how hard it would be until I started building the core features (yes, I still had time to implement them). My commit history from earlier shows that I took things slowly at the start and picked up the pace within the last few weeks.
+
+### **Peer Evaluation**
+
+| Peer   | Plus                                      | Minus                                | Implication                                            |
+| ------ | ----------------------------------------- | ------------------------------------ | ------------------------------------------------------ |
+| Shawn | When looking at the code, it felt coherent and was simple to read, which makes it easy to add features in the future. | Unfortunately, there was no accessibility features implemented, but it could be added considering the good code structure. | The program is good for quick tests and as a baseline for adding features, but it is not for a wide range of people (until added). |
+| Victor | I really liked the random word generator and its fast reaction time, as it calculated the statistics extremely fast, making feel very responsive. | I believe the program could use a bit more visual improvements and options, such as changing theme in the UI, not the code. | The application felt very functional and efficient, but it does not have much customizability, which is important to a lot of users. |
+
+5. **OOP Features**
+
+The system's use of OOP was an important part of the project, as it achieved a simple and maintainable structure that could be improved upon. The `WordLoader` class is an example of the use of encapsulation (also used in other parts of the code), where its job was to load and store a list of words (`wordlist.txt`), while making its functions inaccessible to the other parts of the code. This feature allows more customizability to do things like switching to a different word list, without affecting any other pieces of code. The `AlxType` class is a good case of using abstraction, where it manages the core features of the program, such as starting and ending the test. This means the rest of the system doesn't need to make any calculations, as it gets the definitions from the class and displays it. Inheritance is applied in the `BaseApp` and `GUI` classes, where `GUI` is a child of `BaseApp`, which takes care of settings up the main window and making the default font. This avoids any duplication of the code and allows the settings to be configured in one place. The program also shows normalisation, where different responsibilities are split into their corresponding classes. `WordLoader` handles the external file loading, `AlxType` handles data processing and calculation, and the `BaseApp` and `GUI` classes handle the (you guessed it) GUI. This feature is good for the readability and any future changes of the code, for example adding some new GUI improvements won't destory any of the WPM and accuracy calculations. Although polymorphism wasn't implemented in the code, the structure allows for future improvements, such as a subclass of `AlxType` being used for different testing modes, where it could change `end_test()` without affecting the other parts of the system. In summary, although this type of program wasn't the best choice to implement OOP fundamentals, the code was successfuly transferred to implement as much OOP features that it could include. Encapsulation protects data and keeps it safe from being accessed by other parts of the code, abstraction focuses on making the code work so it can be used correctly, inheritance makes sure that it isn't reused, and normalisation, where it makes the code easier to modify without breaking anything else. 
